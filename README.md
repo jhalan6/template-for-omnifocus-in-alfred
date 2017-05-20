@@ -22,7 +22,7 @@ qof 是一个自定义omnifocus模板的alfred插件，目的是解决常用的o
   键入回车后，就开始按照模板定义的方式生成了omnifocus中的一个任务
   ![][image-3]
 ### 配置分析
-  `{"book":{ "parse": "bookName chapterNum" , "name": "$bookName", "child task": "!python book\_child.py $chapterNum", "inbox": false , "sequential": true, "folder":"读书","flagged": false}}`
+   <script src="https://gist.github.com/jhalan6/24ee91839294115630a90987e330c68a.js"></script>
   - parse: 解析参数的方式，在alfred 中，配置名后面的参数会按照这里设置的名称进行解析。
   - name: 创建的任务的名称，可以使用解析出来的变量值，通过$引用变量值
   - child task:子任务列表。通过\\n进行分割。可以使用!开头，表示是需要执行的脚本，会在\~/.quick\_of 目录下发起执行，并将执行结果作为子目录的列表。
