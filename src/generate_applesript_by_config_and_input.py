@@ -38,6 +38,14 @@ def get_user_def_param(params, param_names):
     return result
 
 
+def import_pre_build_params(configs):
+    (status, clipboard) = commands.getstatusoutput('pbpaste')
+    configs['CLIPBOARD'] = clipboard.decode('utf-8')
+    # print clipboard.decode('utf-8')
+    # print clipboard.decode('utf-8').split('\n')
+    return configs
+
+
 def parse_task_resource_from_config_and_user_def_param(config, user_param):
     result = dict()
     for(k, v)in config.items():
@@ -79,7 +87,7 @@ def parse_task_resource_to_applescript(task):
 
     add_child_task_script = ""
     if task.get("child task", ""):
-        for line in task.get("child task").decode('utf-8').split('\n'):
+        for line in task.get("child task").split('\n'):
             add_child_task_script += """
         make task with properties {name:"%s"} """ % (line.replace('"', '\\"'))
 
@@ -108,14 +116,11 @@ def main():
                                     config_tag, config.get("parse", ""), None))
         alfred.write(alfred.xml(result))
     user_def_param = get_user_def_param(query, config.get("parse", ""))
-    if not user_def_param:
-        result.append(alfred.Item({"uid": alfred.uid(1)},
-                                    config_tag, config.get("parse", ""), None))
-        alfred.write(alfred.xml(result))
+    all_params = import_pre_build_params(user_def_param)
 
     task_resource = \
         parse_task_resource_from_config_and_user_def_param(config,
-                                                           user_def_param)
+                                                           all_params)
 
     # pprint(config)
     # pprint(user_def_param)
@@ -124,6 +129,7 @@ def main():
     result.append(alfred.Item({"uid": alfred.uid(1), "arg": script},
                                     config_tag, config.get("parse", ""), None))
     alfred.write(alfred.xml(result))
+    # pprint(task_resource)
 
 if __name__ == "__main__":
     main()

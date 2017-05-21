@@ -1,5 +1,5 @@
 {
     "book":{ "parse": "bookName chapterNum" , "name": "$bookName", "child task": "!python book_child.py $chapterNum", "inbox": false , "sequential": true, "folder":"读书","flagged": false},
-    "patch":{ "parse": "username" , "name": "给$username加补丁", "child task": "!python patch_child.py", "inbox":false, "sequential":false, "folder":"工作", "flagged": true},
-    "toread":{ "parse": "link" , "inbox": true}
+    "book_list":{ "parse": "bookName" , "name": "$bookName", "child task": "$CLIPBOARD", "inbox": false , "sequential": true, "folder":"读书","flagged": false},
+    "toread":{ "parse": "link" , "name":"未读链接","inbox": true}
 }
