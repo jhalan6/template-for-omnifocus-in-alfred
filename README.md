@@ -34,8 +34,17 @@ qof 是一个自定义omnifocus模板的alfred插件，目的是解决常用的o
   - sequential:指定任务的完成顺序，true为顺序执行，
   - folder：指定task最终加入到哪个目录中
   - flagged: 是否打标记，true为打标记
-
+### 预定义参数
+  - CLIPBOARD 可以使用$CLIPBOARD引用到剪切板中的内容，作为子目录的列表。
+      - 使用效果：在豆瓣上找到自己要看的书的目录，复制。在alfred中输入qof book_list 加上书名，就可以导入有目录的omnifocus 任务了。
+        ![][image-4]
+        ![][image-5]
+        ![][image-6]
+      
 
 [image-1]:	https://oeu8f0i18.qnssl.com/Screen%20Shot%202017-05-20%20at%2018.16.10.png "qof 示例"
 [image-2]:	https://oeu8f0i18.qnssl.com/Screen%20Shot%202017-05-20%20at%2018.19.20.png
-[image-3]:	https://oeu8f0i18.qnssl.com/qof_book_result_demo.png "导入结果"
+[image-3]:	https://oeu8f0i18.qnssl.com/qof_book_result_demo2.png "导入结果"
+[image-4]:	https://oeu8f0i18.qnssl.com/qof_book_list_douban_list.png
+[image-5]:	https://oeu8f0i18.qnssl.com/qof_book_list_with_param.png
+[image-6]:	https://oeu8f0i18.qnssl.com/qf_book_list_result_demo.png
