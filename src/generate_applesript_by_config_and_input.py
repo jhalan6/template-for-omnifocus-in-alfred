@@ -4,7 +4,6 @@ import sys
 import os
 import json
 import commands
-import alfred
 
 
 def byteify(input):
@@ -107,29 +106,24 @@ def parse_task_resource_to_applescript(task):
 
 
 def main():
-    result = []
+    items = []
     config_tag = sys.argv[1]
     query = sys.argv[2:]
     config = get_config_from_param(config_tag)
     if not config:
-        result.append(alfred.Item({"uid": alfred.uid(1)},
-                                    config_tag, config.get("parse", ""), None))
-        alfred.write(alfred.xml(result))
-    user_def_param = get_user_def_param(query, config.get("parse", ""))
-    all_params = import_pre_build_params(user_def_param)
+        items.append({"uid":1, "title": config_tag, "subtitle":"not found"})
+    else:
+        user_def_param = get_user_def_param(query, config.get("parse", ""))
+        all_params = import_pre_build_params(user_def_param)
 
-    task_resource = \
-        parse_task_resource_from_config_and_user_def_param(config,
-                                                           all_params)
+        task_resource = \
+            parse_task_resource_from_config_and_user_def_param(config,
+                                                            all_params)
 
-    # pprint(config)
-    # pprint(user_def_param)
-    # pprint(task_resource)
-    script = parse_task_resource_to_applescript(task_resource)
-    result.append(alfred.Item({"uid": alfred.uid(1), "arg": script},
-                                    config_tag, config.get("parse", ""), None))
-    alfred.write(alfred.xml(result))
-    # pprint(task_resource)
+        script = parse_task_resource_to_applescript(task_resource)
+        items.append({"uid": 1, "arg": script, "title":config_tag, "subtitle": config.get("parse", "")})
+    result = {"items": items}
+    sys.stdout.write(json.dumps(result))
 
 if __name__ == "__main__":
     main()
